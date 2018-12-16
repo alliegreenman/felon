@@ -7,24 +7,33 @@ import bootstrapped.bootstrap as bs
 import bootstrapped.compare_functions as bs_compare
 import bootstrapped.stats_functions as bs_stats
 import numpy.random as npr
-import collections
-import matplotlib as plt
 from scipy import stats
 from numpy import genfromtxt
 
-#data=pd.io.stata.read_stata('jt_all.dta')
-data=pd.read_table('jt_all.dta')
-jt=data.to_csv('jt_all.dta')
-
-
-#print(jt.head(5))
-#print(jt['year'].head(5))
-#jts=jt.sample(100)
+"""
+###with pandas, run out of space
+jt=pd.read_csv('jt_sample.csv')
 year=jt['year']
-#year=np.matrix(jt['year'])
 jt.dropna()
-#if year.all>2004:
-    #assuming normal, check with pop, sd seems large
+ages=jt['age'].astype(str)
+new_age=ages.replace("Under 1 year", "1")
+
+nage=[int(x) for x in new_age]
+age=np.array(nage)
+age_sd=25.57
+age_mean=32
+mean_res=bs.bootstrap(age, stat_func=bs_stats.mean)
+std_res=bs.bootstrap(age, stat_function=bs_stat.std)
+"""
+
+jt=open('jt_sample.csv', 'r').readlines()
+
+year=np.array(jt['year'])
+year=jt['year'].astype(str)
+year=[int(x) for x in new_age]
+
+#year=np.array(jt['year'])
+
 
 #https://www.bjs.gov/content/pub/ascii/Fssc00.txt
 age_sd=25.57
